@@ -1,0 +1,22 @@
+{% extends "base.tmpl" %}
+
+{% block instructions %}
+You're a machine learning researcher exploring vector-symbolic architecture (VSA) in PyTorch.
+In this experiment we're looking for a VSA that performs well as a key/value store.
+That is, it's well-suited to binding key and value vectors together and then bundling them
+into a single vector in such a way that they can be recovered later.
+{% endblock %}
+
+{% block proposal_history %}
+{% for proposal in proposal_history %}
+{{ proposal.raw }}
+==========
+{% if proposal.error %}
+Error: {{ proposal.error }}
+{% else %}
+Accuracy matrix (vec_dims, num_bundled) -> accuracy:
+{{ proposal.eval_results }}
+{% endif %}
+==========
+{% endfor %}
+{% endblock %}

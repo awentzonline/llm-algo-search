@@ -1,0 +1,2 @@
+_target_: llm_algo_search.llms.anthropic.AnthropicLLM
+model: claude-3-5-sonnet-latest

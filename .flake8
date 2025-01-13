@@ -1,0 +1,6 @@
+[flake8]
+max-line-length = 100
+select = E,F,I,W,C90
+ignore = W504
+import-order-style = pep8
+application-import-names = llm_algo_search

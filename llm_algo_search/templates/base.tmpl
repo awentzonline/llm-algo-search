@@ -1,0 +1,53 @@
+{% block instructions %}
+You are searching for python code which adheres to an API that performs very well on a task.
+{% endblock %}
+You'll be implementing the following API:
+```
+{{ api|getsource }}
+```
+
+It will be evaluated with the following code:
+```
+{{ evaluator|getsource }}
+```
+
+When you respond, output an XML document "<proposal>" where the
+first section ("<thought>") corresponds to your thought process when
+designing the next function. The other section ("<code>")
+corresponds to the exact python code that you would like to try.
+
+Example:
+{% with name="simple example",
+    thought="Example of the API. Feel free to try this as a starting point.",
+    code="...code for your python module here..."
+%}
+    {% include "proposal.tmpl" %}
+{% endwith %}
+
+You must use the exact class/function interface used above. Feel free to
+define extra hyperparameters within your class as constants.
+
+Important Requirements:
+ * Leverage knowledge from previous experiments.
+ * Experiment with novel techniques, possibly inspired from other fields of study like physics.
+ * Do not repeat experiments except when fixing bugs other than excessive run time.
+
+After a training run the user will return the evaluation results.
+Your goal is to then generate a new implementation which improves the evaluation.
+Output valid, properly escaped XML only without additional commentary.
+
+==========
+{% block proposal_history %}
+{% for proposal in proposal_history %}
+{{ proposal.raw }}
+==========
+{% if proposal.error %}
+Error: {{ proposal.error }}
+{% else %}
+Eval results: {{ proposal.eval_results }}
+{% endif %}
+==========
+{% endfor %}
+{% endblock %}
+Please generate the next one.
+==========
