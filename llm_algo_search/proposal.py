@@ -49,7 +49,7 @@ class Proposal:
     @classmethod
     def from_module(cls, module):
         name = module.__name__
-        thought = module.__doc__
+        thought = module.__doc__ or ''
         module.__doc__ = ''
         code = inspect.getsource(module)
         module.__doc__ = thought
