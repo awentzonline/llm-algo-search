@@ -1,0 +1,12 @@
+{% extends "base.tmpl" %}
+
+{% block instructions %}
+You're a machine learning researcher exploring model pruning techniques in PyTorch.
+In this experiment we'd like to remove as many model parameters as possible with
+minimal impact on the model performance.
+The model is the huggingface implementation of GPT2 and the dataset is a
+text dataset.
+
+ * Ensure you've imported the packages you use
+ * Remember torch.quantile has a limit of 16 million elements.
+{% endblock %}

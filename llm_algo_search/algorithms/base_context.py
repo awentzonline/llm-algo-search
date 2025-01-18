@@ -36,7 +36,7 @@ class BaseAlgoContext(TemplateRenderMixin):
     def get_evaluator(self):
         module = importlib.import_module(self.eval_module_name)
         for name, value in inspect.getmembers(module):
-            if inspect.isclass(value):
+            if inspect.isclass(value) and value.__module__ == module.__name__:
                 return value()
         raise ValueError(f'No evaluator found in `{self.algo_package_name}`')
 
