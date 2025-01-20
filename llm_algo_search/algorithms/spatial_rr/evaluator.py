@@ -1,6 +1,3 @@
-from functools import partial, reduce
-
-import numpy as np
 import torch
 
 
