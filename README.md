@@ -13,6 +13,14 @@ Algorithm packages use configuration by convention.
   * seeds/ - a directory where you can place API implementations to be evaluated at the beginning
   * templates/ - jinja2 templates if you'd like to extend or override the base prompt template
 
+Add an algorithm config to `configs/algo/your_algorithm.yaml` which contains
+
+```
+package: llm_algo_search.algorithms.your_algorithm
+proposal_history_filename: proposal_history_your_name.pkl
+```
+
+Run via: `python -m llm_algo_search.search algo=your_algorithm`
 
 Example
 -------

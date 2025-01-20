@@ -1,0 +1,2 @@
+package: llm_algo_search.algorithms.spatial_rr
+proposal_history_filename: proposal_history_spatial_rr.pkl

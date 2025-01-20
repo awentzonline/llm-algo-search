@@ -3,9 +3,8 @@
 defaults:
   - _self_
   - llm: anthropic
+  - algo: example
 
-algo_package: llm_algo_search.algorithms.example
-proposal_history_filename: proposal_history.pkl
 load_existing: true
 max_steps: 5
 max_errors: 3
