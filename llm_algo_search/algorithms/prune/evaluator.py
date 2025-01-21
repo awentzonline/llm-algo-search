@@ -6,7 +6,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, default_d
 
 
 class PruneEvaluator:
-    def evaluate(self, prune_cls):
+    def evaluate(self, cfg, prune_cls):
         """
         Evaluate pruner performance on GPT2 using wikitext-2 dataset.
         """

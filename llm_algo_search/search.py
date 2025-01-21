@@ -18,7 +18,7 @@ def main(cfg: DictConfig) -> Optional[float]:
     algo_context = BaseAlgoContext.get_context_from_package_path(cfg.algo.package)
     proposer = Proposer(llm=llm, context=algo_context)
     evaluator = algo_context.get_evaluator()
-    evaluation_wrapper = EvaluationWrapper(evaluator)
+    evaluation_wrapper = EvaluationWrapper(cfg.algo, evaluator)
 
     # load up existing work history or start with seeds
     proposal_history = []

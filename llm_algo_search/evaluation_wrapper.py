@@ -3,12 +3,14 @@ import traceback
 
 
 class EvaluationWrapper:
-    def __init__(self, evaluator):
+    def __init__(self, cfg, evaluator):
+        self.cfg = cfg
         self.evaluator = evaluator
 
     def evaluate(self, proposal):
         try:
             eval_results = self.evaluator.evaluate(
+                self.cfg,
                 proposal.get_implementation()
             )
             proposal.eval_results = eval_results

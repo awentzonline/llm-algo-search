@@ -2,7 +2,7 @@ import torch
 
 
 class SpatialRREvaluator:
-    def evaluate(self, spatial_rr_cls):
+    def evaluate(self, cfg, spatial_rr_cls):
         """
         Evaluate spatial reduced representation.
         Test how accurately distinct points can be bound and recovered from a single vector.

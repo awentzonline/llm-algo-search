@@ -13,7 +13,7 @@ def test_searcher():
     algo_context = ExampleAlgoContext()
     proposer = Proposer(llm=llm, context=algo_context)
     evaluator = algo_context.get_evaluator()
-    evaluation_wrapper = EvaluationWrapper(evaluator)
+    evaluation_wrapper = EvaluationWrapper({}, evaluator)
     searcher = Searcher(proposer, evaluation_wrapper)
     proposals = searcher.search(
         max_steps=1, max_errors=1

@@ -5,7 +5,7 @@ import torch
 
 
 class VSAKVEvaluator:
-    def evaluate(self, vsa_cls):
+    def evaluate(self, cfg, vsa_cls):
         """
         Evaluate VSA on key/value store performance.
         Test how many key/value pairs can be bundled and recovered.
