@@ -22,8 +22,8 @@ def main(cfg: DictConfig) -> Optional[float]:
 
     # load up existing work history or start with seeds
     proposal_history = []
-    if cfg.load_existing and os.path.exists(cfg.proposal_history_filename):
-        with open(cfg.proposal_history_filename, 'rb') as infile:
+    if cfg.load_existing and os.path.exists(cfg.algo.proposal_history_filename):
+        with open(cfg.algo.proposal_history_filename, 'rb') as infile:
             proposal_history = pickle.load(infile)
     else:
         seeds = algo_context.get_seed_modules()
