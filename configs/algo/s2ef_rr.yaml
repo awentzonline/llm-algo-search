@@ -1,0 +1,8 @@
+package: llm_algo_search.algorithms.s2ef_rr
+proposal_history_filename: proposal_history_s2ef_rr.pkl
+
+train_dataset_path: data/train/rattled-300-subsampled
+val_dataset_path: data/val/rattled-300-subsampled
+batch_size: 32
+lr: 1e-3
+num_epochs: 1
