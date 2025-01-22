@@ -3,6 +3,6 @@ proposal_history_filename: proposal_history_s2ef_rr.pkl
 
 train_dataset_path: data/train/rattled-300-subsampled
 val_dataset_path: data/val/rattled-300-subsampled
-batch_size: 32
+batch_size: 8
 lr: 1e-3
 num_epochs: 1
