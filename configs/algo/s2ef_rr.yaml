@@ -7,3 +7,4 @@ val_dataset_path: data/val/rattled-300-subsampled
 batch_size: 8
 lr: 1e-3
 num_epochs: 1
+device: cpu

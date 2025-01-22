@@ -16,6 +16,7 @@ class S2EFRREvaluator:
             print('training model size =', model_dims)
             atom_rr = atom_rr_cls(model_dims)
             model = EnergyModel(model_dims, 1)
+            model.to(cfg.device)
             metrics = train_model(model, atom_rr, cfg)
             eval_metrics = eval_model(model, atom_rr, cfg)
             all_metrics.append(eval_metrics)

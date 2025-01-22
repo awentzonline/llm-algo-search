@@ -33,6 +33,8 @@ def train_model(model, atom_rr, cfg):
 
     for epoch_i in range(cfg.num_epochs):
         for inputs, target_energy in tqdm(dataloader):
+            inputs.to(cfg.device)
+            target_energy.to(cfg.device)
             pred_energy = model(inputs)
             loss = f_loss(pred_energy, target_energy)
             optimizer.zero_grad()
@@ -56,6 +58,8 @@ def eval_model(model, atom_rr, cfg):
     losses = []
     for epoch_i in range(cfg.num_epochs):
         for inputs, target_energy in tqdm(dataloader):
+            inputs.to(cfg.device)
+            target_energy.to(cfg.device)
             pred_energy = model(inputs)
             loss = f_loss(pred_energy, target_energy)
             losses.append(loss)
