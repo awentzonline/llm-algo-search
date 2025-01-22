@@ -18,12 +18,16 @@ Add an algorithm config to `configs/algo/your_algorithm.yaml` which contains
 ```
 package: llm_algo_search.algorithms.your_algorithm
 proposal_history_filename: proposal_history_your_name.pkl
+
+...other configuration vars you want to use in your evaluator...
 ```
 
 Run via: `python -m llm_algo_search.search algo=your_algorithm`
 
 Example
 -------
+Create a class that outputs 'foo' or 'bar'.
+
 The example can be found in `llm_algo_search/algorithms/example`
 
 `api.py`:
