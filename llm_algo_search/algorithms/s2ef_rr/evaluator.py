@@ -11,10 +11,8 @@ class S2EFRREvaluator:
         Evaluate atomistic reduced representations for modeling total energy.
         `atom_rr_cls` your implementation to be evaluated
         """
-        all_model_dims = (128, 256, 512, 1024)
-
         all_metrics = []
-        for model_dims in all_model_dims:
+        for model_dims in cfg.all_model_dims:
             print('training model size =', model_dims)
             atom_rr = atom_rr_cls(model_dims)
             model = EnergyModel(model_dims, 1)
