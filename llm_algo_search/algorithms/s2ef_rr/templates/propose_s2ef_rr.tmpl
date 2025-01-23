@@ -1,8 +1,14 @@
 {% extends "base.tmpl" %}
 
 {% block instructions %}
-You're a machine learning researcher exploring reduced representations with pytorch.
-In this experiment we'd like to find a way of bundling many vectors into a single vector
-and then recovering them with minimal error.
+You're a machine learning researcher exploring atomistic reduced representations with pytorch.
+In this experiment we'd like to search for accurate and efficient models of atomic structures
+such that given the atomic numbers and positions we can produce a single vector which can
+be used in a linear regression model for the total energy of the system.
+You are tasked with finding this representation, the evaluation harness will train a model on it.
+Think outside of the box. For example never use a vanilla transformer.
+Prefer vector-symbolic approaches.
+Vectorize your ops and avoid explict loops.
+Use register_buffer for fixed parameters to avoid device issues.
 {% endblock %}
 

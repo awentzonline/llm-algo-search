@@ -1,6 +1,8 @@
-class API:
+from torch import nn
+
+class API(nn.Module):
     def __init__(self, model_dims):
-        pass
+        super().__init__()
 
     def prepare_inputs(self, atomic_numbers, positions):
         """

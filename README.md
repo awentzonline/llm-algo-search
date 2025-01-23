@@ -10,7 +10,7 @@ Algorithm packages use configuration by convention.
   * api.py - stub API to be implemented
   * context.py - contains a subclass of BaseAlgoContext which you can optionally configure things
   * evaluator.py - class that has an `evaluate` method which takes an API implementation as input
-  * seeds/ - a directory where you can place API implementations to be evaluated at the beginning
+  * seeds/ - a directory where you can place API implementations to be evaluated at the beginning. Not required.
   * templates/ - jinja2 templates if you'd like to extend or override the base prompt template
 
 Add an algorithm config to `configs/algo/your_algorithm.yaml` which contains
