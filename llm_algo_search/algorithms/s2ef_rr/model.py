@@ -1,3 +1,5 @@
+from itertools import chain
+
 from fairchem.core.datasets import AseDBDataset
 import torch
 from torch import nn
@@ -26,10 +28,12 @@ class AtomsReducedRepresentationDataset(Dataset):
 def train_model(model, atom_rr, cfg):
     model.train()
     model = model.to(cfg.device)
+    parameters = model.parameters()
     if isinstance(atom_rr, nn.Module):
         atom_rr = atom_rr.to(cfg.device)
+        parameters = chain(parameters, atom_rr.parameters())
     f_loss = nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=cfg.lr)
+    optimizer = torch.optim.Adam(parameters, lr=cfg.lr)
 
     dataset = AseDBDataset(config=dict(src=cfg.train_dataset_path, a2g_args=dict(r_energy=True)))
     vec_dataset = AtomsReducedRepresentationDataset(dataset, atom_rr, cfg.device)
