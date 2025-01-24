@@ -1,0 +1,15 @@
+package: llm_algo_search.algorithms.distill_clm
+proposal_history_filename: proposal_history_distill_clm.pkl
+
+model_name: gpt2
+target_model_name: gpt2-xl
+dataset_name: wikitext
+dataset_config_name: wikitext-2-v1
+block_size: 128
+take_head: null
+batch_size: 8
+gradient_accumulation_steps: 1
+num_epochs: 1
+lr: 2e-4
+output_dir: outputs
+preprocessing_num_workers: 4
