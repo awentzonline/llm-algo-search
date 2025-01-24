@@ -3,6 +3,7 @@ from itertools import chain
 import datasets
 import evaluate
 import torch
+from torch import nn
 import torch.nn.functional as F
 from transformers import (
     AutoConfig, AutoModelForCausalLM, AutoTokenizer,
@@ -12,12 +13,18 @@ from transformers import (
 
 class DistillerTrainer(Trainer):
     def __init__(self, model, target_model, distiller, *args, **kwargs):
-        self.target_model = target_model.eval()
-        self.distiller = distiller
         super().__init__(
             model=model,
             **kwargs
         )
+        self.target_model = target_model.eval()
+        self.distiller = distiller
+
+    def train(self, *args, **kwargs):
+        self._move_model_to_device(self.target_model, self.args.device)
+        if isinstance(self.distiller, nn.Module):
+            self._move_model_to_device(self.distiller, self.args.device)
+        return super().train(*args, **kwargs)
 
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         outputs = model(**inputs)
@@ -120,4 +127,9 @@ def distill_model(cfg, distiller):
     eval_metrics = trainer.evaluate()
     print('eval metrics', eval_metrics)
 
+    model.cpu()
+    target_model.cpu()
+    del model
+    del target_model
+    
     return eval_metrics
