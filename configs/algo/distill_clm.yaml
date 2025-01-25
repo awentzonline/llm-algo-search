@@ -13,3 +13,5 @@ num_epochs: 1
 lr: 2e-4
 output_dir: outputs
 preprocessing_num_workers: 4
+
+max_step_time: 2.0
