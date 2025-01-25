@@ -33,7 +33,11 @@ class DistillerTrainer(Trainer):
         pred_logits = outputs.logits
         with torch.inference_mode():
             target_logits = self.target_model(**inputs).logits
-        loss = self.distiller(pred_logits, target_logits)
+        loss = self.distiller(
+            pred_logits[:, :-1].contiguous(),
+            target_logits[:, :-1].contiguous(),
+            inputs['labels'][:, 1:].contiguous()
+        )
 
         return (loss, outputs) if return_outputs else loss
 

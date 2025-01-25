@@ -10,7 +10,7 @@ take_head: null
 batch_size: 4
 gradient_accumulation_steps: 1
 num_epochs: 0.1
-lr: 2e-4
+lr: 5e-5
 output_dir: outputs
 preprocessing_num_workers: 4
 save_strategy: 'no'
