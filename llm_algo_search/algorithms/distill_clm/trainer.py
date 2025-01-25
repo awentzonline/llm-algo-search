@@ -10,6 +10,8 @@ from transformers import (
     Trainer, TrainingArguments, default_data_collator
 )
 
+from llm_algo_search.hfutils.trainer_callbacks import StopSlowTrainingCallback
+
 
 class DistillerTrainer(Trainer):
     def __init__(self, model, target_model, distiller, *args, **kwargs):
@@ -107,6 +109,11 @@ def distill_model(cfg, distiller):
         gradient_accumulation_steps=cfg.gradient_accumulation_steps,
         learning_rate=cfg.lr,
     )
+
+    callbacks = []
+    if cfg.max_step_time:
+        callbacks.append(StopSlowTrainingCallback(cfg.max_step_time))
+
     trainer = DistillerTrainer(
         model,
         target_model,
@@ -118,6 +125,7 @@ def distill_model(cfg, distiller):
         data_collator=default_data_collator,
         compute_metrics=compute_metrics,
         preprocess_logits_for_metrics=preprocess_logits_for_metrics,
+        callbacks=callbacks,
     )
 
     train_result = trainer.train()
@@ -131,5 +139,5 @@ def distill_model(cfg, distiller):
     target_model.cpu()
     del model
     del target_model
-    
+
     return eval_metrics
