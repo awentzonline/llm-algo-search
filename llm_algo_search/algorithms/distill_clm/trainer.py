@@ -108,6 +108,8 @@ def distill_model(cfg, distiller):
         per_device_eval_batch_size=cfg.batch_size,
         gradient_accumulation_steps=cfg.gradient_accumulation_steps,
         learning_rate=cfg.lr,
+        lr_scheduler_type=cfg.lr_scheduler_type,
+        save_strategy=cfg.save_strategy,
     )
 
     callbacks = []
