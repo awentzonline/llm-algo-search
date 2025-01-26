@@ -1,10 +1,6 @@
 import time
 
-import numpy as np
-import torch
-from torch import nn
-
-from .model import EnergyModel, eval_model, train_model
+from .model import ProposedEnergyModel, eval_model, train_model
 
 
 class S2EFRREvaluator:
@@ -18,9 +14,9 @@ class S2EFRREvaluator:
             print('training model size =', model_dims)
             t0 = time.time()
             atom_rr = atom_rr_cls(model_dims)
-            model = EnergyModel(model_dims, 1)
-            metrics = train_model(model, atom_rr, cfg)
-            eval_metrics = eval_model(model, atom_rr, cfg)
+            model = ProposedEnergyModel(model_dims, 1, atom_rr)
+            metrics = train_model(model, cfg)
+            eval_metrics = eval_model(model, cfg)
             eval_metrics['time'] = int(time.time() - t0)
             all_metrics.append(eval_metrics)
 
