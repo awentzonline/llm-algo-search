@@ -43,7 +43,7 @@ def train_model(model, cfg):
 def eval_model(model, cfg):
     model.eval()
     model = model.to(cfg.device)
-    f_loss = nn.Smooth1Loss()
+    f_loss = nn.SmoothL1Loss()
 
     dataset = LmdbDataset(config=dict(src=cfg.val_dataset_path, a2g_args=dict(r_energy=True)))
     collater = partial(
