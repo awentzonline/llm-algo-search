@@ -1,6 +1,6 @@
 from functools import partial
 
-from fairchem.core.datasets import AseDBDataset, data_list_collater
+from fairchem.core.datasets import LmdbDataset, data_list_collater
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -15,7 +15,7 @@ def train_model(model, cfg):
     f_loss = nn.SmoothL1Loss()
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg.lr)
 
-    dataset = AseDBDataset(config=dict(src=cfg.train_dataset_path, a2g_args=dict(r_energy=True)))
+    dataset = LmdbDataset(config=dict(src=cfg.train_dataset_path, a2g_args=dict(r_energy=True)))
     collater = partial(
         data_list_collater, otf_graph=cfg.get("model", {}).get("otf_graph", True)
     )
@@ -28,7 +28,7 @@ def train_model(model, cfg):
                 break
             data = data.to(cfg.device)
             pred_energy = model(data)['energy'].squeeze(-1)
-            loss = f_loss(pred_energy, data.energy)
+            loss = f_loss(pred_energy, data.y_relaxed)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -43,9 +43,9 @@ def train_model(model, cfg):
 def eval_model(model, cfg):
     model.eval()
     model = model.to(cfg.device)
-    f_loss = nn.SmoothL1Loss()
+    f_loss = nn.Smooth1Loss()
 
-    dataset = AseDBDataset(config=dict(src=cfg.val_dataset_path, a2g_args=dict(r_energy=True)))
+    dataset = LmdbDataset(config=dict(src=cfg.val_dataset_path, a2g_args=dict(r_energy=True)))
     collater = partial(
         data_list_collater, otf_graph=cfg.get("model", {}).get("otf_graph", True)
     )
@@ -59,7 +59,7 @@ def eval_model(model, cfg):
                 break
             data = data.to(cfg.device)
             pred_energy = model(data)['energy'].squeeze(-1)
-            loss = f_loss(pred_energy, data.energy)
+            loss = f_loss(pred_energy, data.y_relaxed)
             losses.append(loss)
             pbar.set_postfix({'loss': loss.item()})
 

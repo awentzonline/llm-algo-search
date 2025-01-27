@@ -158,3 +158,5 @@ wandb/
 
 *.pkl
 *.pkl.?
+
+data/

@@ -1,0 +1,12 @@
+package: llm_algo_search.algorithms.is2re_rr
+proposal_history_filename: proposal_history_is2re_rr.pkl
+
+all_model_dims: [128, 256, 512]
+train_dataset_path: data/oc22/is2re-total/train
+val_dataset_path: data/oc22/is2re-total/val_id
+batch_size: 8
+lr: 1e-3
+num_epochs: 1
+device: cpu
+max_train_batches: null
+max_eval_batches: null

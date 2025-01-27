@@ -1,0 +1,30 @@
+trainer: ocp
+
+dataset:
+  train:
+    format: lmdb
+    src: data/oc22/is2re-total/train
+    key_mapping:
+      y_relaxed: energy
+  val:
+    src: data/oc22/is2re-total/val_id
+
+logger: wandb
+
+outputs:
+  energy:
+    shape: 1
+    level: system
+
+loss_functions:
+  - energy:
+      fn: mae
+      coefficient: 1.
+
+evaluation_metrics:
+  metrics:
+    energy:
+      - mae
+      - mse
+      - energy_within_threshold
+  primary_metric: energy_mae

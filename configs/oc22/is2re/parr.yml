@@ -1,0 +1,24 @@
+includes:
+  - configs/oc22/is2re/base.yml
+
+trainer: ocp
+
+model:
+  name: parr
+  model_dims: 512
+  proposal_path: proposal_history_is2re_rr.pkl
+  otf_graph: True
+
+optim:
+  batch_size: 8
+  eval_batch_size: 8
+  num_workers: 0
+  optimizer: Adam
+  lr_initial: 1.e-4
+  scheduler: ReduceLROnPlateau
+  mode: min
+  factor: 0.8
+  patience: 3
+  max_epochs: 80
+  ema_decay: 0.999
+  clip_grad_norm: 10
