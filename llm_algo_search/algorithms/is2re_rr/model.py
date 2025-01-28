@@ -1,6 +1,7 @@
 from functools import partial
 
-from fairchem.core.datasets import LmdbDataset, data_list_collater
+from fairchem.core.datasets import data_list_collater
+from fairchem.core.datasets.oc22_lmdb_dataset import OC22LmdbDataset
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -15,7 +16,7 @@ def train_model(model, cfg):
     f_loss = nn.SmoothL1Loss()
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg.lr)
 
-    dataset = LmdbDataset(config=dict(src=cfg.train_dataset_path, a2g_args=dict(r_energy=True)))
+    dataset = OC22LmdbDataset(config=dict(src=cfg.train_dataset_path, a2g_args=dict(r_energy=True)))
     collater = partial(
         data_list_collater, otf_graph=cfg.get("model", {}).get("otf_graph", True)
     )
@@ -45,7 +46,7 @@ def eval_model(model, cfg):
     model = model.to(cfg.device)
     f_loss = nn.SmoothL1Loss()
 
-    dataset = LmdbDataset(config=dict(src=cfg.val_dataset_path, a2g_args=dict(r_energy=True)))
+    dataset = OC22LmdbDataset(config=dict(src=cfg.val_dataset_path, a2g_args=dict(r_energy=True)))
     collater = partial(
         data_list_collater, otf_graph=cfg.get("model", {}).get("otf_graph", True)
     )
