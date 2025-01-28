@@ -4,8 +4,16 @@ dataset:
   train:
     format: oc22_lmdb
     src: data/oc22/is2re-total/train
+    normalize_labels: True
     key_mapping:
       y_relaxed: energy
+    transforms:
+      normalizer:
+        fit:
+          targets:
+            energy: {}
+          batch_size: 64
+          num_batches: 100
   val:
     src: data/oc22/is2re-total/val_id
 
