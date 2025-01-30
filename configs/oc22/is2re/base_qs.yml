@@ -1,0 +1,37 @@
+
+dataset:
+  train:
+    format: oc22_lmdb
+    src: data/oc22/is2re-total/train
+    normalize_labels: True
+    key_mapping:
+      y_relaxed: energy
+    transforms:
+      normalizer:
+        fit:
+          targets:
+            energy: {}
+          batch_size: 64
+          num_batches: 100
+  val:
+    src: data/oc22/is2re-total/val_id
+
+logger: wandb
+
+outputs:
+  energy:
+    shape: 1
+    level: system
+
+loss_functions:
+  - energy:
+      fn: quantile_huber
+      coefficient: 1.
+
+evaluation_metrics:
+  metrics:
+    energy:
+      - mae
+      - mse
+      - energy_within_threshold
+  primary_metric: energy_mae

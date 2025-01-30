@@ -1,11 +1,12 @@
 includes:
-  - configs/oc22/is2re/base.yml
+  - configs/oc22/is2re/base_qs.yml
 
-trainer: ocp
+trainer: ocp_qs
 
 model:
-  name: parr
-  model_dims: 512
+  name: parr_qs
+  model_dims: 128
+  num_quantiles: 9
   proposal_path: proposal_history_is2re_rr.pkl
   otf_graph: True
 
