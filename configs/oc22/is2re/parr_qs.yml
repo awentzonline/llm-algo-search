@@ -5,7 +5,7 @@ trainer: ocp_qs
 
 model:
   name: parr_qs
-  model_dims: 128
+  model_dims: 512
   num_quantiles: 9
   proposal_path: proposal_history_is2re_rr.pkl
   otf_graph: True

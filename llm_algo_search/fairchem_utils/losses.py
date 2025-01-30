@@ -13,24 +13,24 @@ from llm_algo_search.models.quantiles import quantile_loss, quantile_huber_loss
 class QuantileLoss(nn.Module):
     def __init__(self, num_quantiles=9):
         super().__init__()
-        self.register_buffer('quantiles', torch.linspace(0, 1, num_quantiles))
+        self.register_buffer('quantiles', torch.linspace(0.01, 0.99, num_quantiles))
 
     def forward(
         self, pred: torch.Tensor, target: torch.Tensor, natoms: torch.Tensor
     ):
-        return quantile_loss(pred, target, quantiles=self.quantiles)
+        return quantile_loss(pred, target, quantiles=self.quantiles, reduction=None)
 
 
 @registry.register_loss('quantile_huber')
 class QuantileHuberLoss(nn.Module):
     def __init__(self, num_quantiles=9):
         super().__init__()
-        self.register_buffer('quantiles', torch.linspace(0, 1, num_quantiles))
+        self.register_buffer('quantiles', torch.linspace(0.01, 0.99, num_quantiles))
 
     def forward(
         self, pred: torch.Tensor, target: torch.Tensor, natoms: torch.Tensor
     ):
-        return quantile_huber_loss(pred, target, quantiles=self.quantiles)
+        return quantile_huber_loss(pred, target, quantiles=self.quantiles, reduction=None)
 
 
 class DDPQuantileLoss(nn.Module):

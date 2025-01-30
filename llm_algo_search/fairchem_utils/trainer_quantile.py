@@ -15,7 +15,7 @@ class OCPQuantileTrainer(OCPTrainer):
         out = {k: v.clone() for k, v in out.items()}
 
         # reduce the quantiles for the metric calculations
-        out['energy'] = out['energy'].mean(-1)
+        out['energy'] = out['energy'].mean(-1, keepdim=True)
 
         return super()._compute_metrics(out, batch, evaluator, metrics)
 

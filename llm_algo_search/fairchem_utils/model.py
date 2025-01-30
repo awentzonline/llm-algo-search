@@ -92,7 +92,11 @@ class ProposedEnergyQuantilesModel(nn.Module):
         else:
             self.atom_rr = atom_rr
 
-        self.net = QuantilesOutput(model_dims, num_quantiles=num_quantiles)
+        self.net = nn.Sequential(
+            nn.Linear(model_dims, model_dims),
+            nn.GELU(),
+        )
+        self.output_net = QuantilesOutput(model_dims, num_quantiles=num_quantiles)
 
     def _get_best_implementation(self, proposal_path):
         with open(proposal_path, 'rb') as infile:
@@ -141,7 +145,7 @@ class ProposedEnergyQuantilesModel(nn.Module):
         reduced_inputs = torch.stack(reduced_inputs)
         return reduced_inputs
 
-    def forward(self, x, reduce='mean'):
+    def forward(self, x):
         reduced = self.reduce_inputs(x)
-        y_qs = self.net(reduced)
+        y_qs = self.output_net(self.net(reduced))
         return dict(energy=y_qs)
