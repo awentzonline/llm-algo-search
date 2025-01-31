@@ -35,9 +35,9 @@ class OCPQuantileTrainer(OCPTrainer):
                 ), f"'coefficient' is not defined in the {target} loss config {loss[target]}."
                 coefficient = loss[target].get("coefficient")
                 loss_reduction = loss[target].get("reduction")
-
+                loss_kwargs = loss[target].get('kwargs')
                 # This DDPLoss allows the quantile prediction shape
-                loss_fn = DDPQuantileLoss(loss_name, reduction=loss_reduction)
+                loss_fn = DDPQuantileLoss(loss_name, reduction=loss_reduction, loss_kwargs=loss_kwargs)
 
                 self.loss_functions.append(
                     (target, {"fn": loss_fn, "coefficient": coefficient})

@@ -80,9 +80,11 @@ class DDPQuantileLoss(nn.Module):
         self,
         loss_name,
         reduction: Literal["mean", "sum"],
+        loss_kwargs: dict = None,
     ) -> None:
         super().__init__()
-        self.loss_fn = registry.get_loss_class(loss_name)()
+        loss_kwargs = loss_kwargs or {}
+        self.loss_fn = registry.get_loss_class(loss_name)(**loss_kwargs)
         # default reduction is mean
         self.reduction = reduction if reduction is not None else "mean"
         self.reduction_map = {

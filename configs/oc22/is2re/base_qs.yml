@@ -27,6 +27,8 @@ loss_functions:
   - energy:
       fn: quantile_huber
       coefficient: 1.
+      kwargs:
+        num_quantiles: 9
 
 evaluation_metrics:
   metrics:
