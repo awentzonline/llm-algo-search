@@ -6,6 +6,12 @@ from .losses import DDPQuantileLoss
 
 @registry.register_trainer('ocp_qs')
 class OCPQuantileTrainer(OCPTrainer):
+    """
+    Changes OCPTrainer to accomodate a model that outputs multiple quantile predictions.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, name='ocp_qs', **kwargs)
 
     def _compute_metrics(self, out, batch, evaluator, metrics=None):
         if metrics is None:
