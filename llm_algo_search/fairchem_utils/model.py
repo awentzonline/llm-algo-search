@@ -36,7 +36,7 @@ class ProposedEnergyModel(nn.Module):
                 best_loss = np.inf
             else:
                 best_loss = np.min([
-                    e['mean_loss'] for e in prop.eval_results['mean_losses']
+                    e['loss'] for e in prop.eval_results
                 ])
             losses.append(best_loss)
 
@@ -71,6 +71,8 @@ class ProposedEnergyModel(nn.Module):
             )
         )
         reduced_inputs = torch.stack(reduced_inputs)
+        if hasattr(self.atom_rr, 'update_hidden'):
+            reduced_inputs = self.atom_rr.update_hidden(reduced_inputs)
         return reduced_inputs
 
     def forward(self, x):
@@ -108,7 +110,7 @@ class ProposedEnergyQuantilesModel(nn.Module):
                 best_loss = np.inf
             else:
                 best_loss = np.min([
-                    e['mean_loss'] for e in prop.eval_results['mean_losses']
+                    e['loss'] for e in prop.eval_results
                 ])
             losses.append(best_loss)
 
@@ -143,6 +145,8 @@ class ProposedEnergyQuantilesModel(nn.Module):
             )
         )
         reduced_inputs = torch.stack(reduced_inputs)
+        if hasattr(self.atom_rr, 'update_hidden'):
+            reduced_inputs = self.atom_rr.update_hidden(reduced_inputs)
         return reduced_inputs
 
     def forward(self, x):

@@ -65,5 +65,5 @@ def eval_model(model, cfg):
             pbar.set_postfix({'loss': loss.item()})
 
     return {
-        'mean_loss': torch.mean(torch.FloatTensor(losses)).item()
+        'loss': torch.mean(torch.FloatTensor(losses)).item()
     }

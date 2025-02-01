@@ -22,9 +22,7 @@ class S2EFRREvaluator:
             metrics = train_model(model, cfg)
             eval_metrics = eval_model(model, cfg)
             eval_metrics['time'] = int(time.time() - t0)
+            eval_metrics['model_dims'] = model_dims
             all_metrics.append(eval_metrics)
 
-        return {
-            'model_dims': cfg.all_model_dims,
-            'mean_losses': all_metrics,
-        }
+        return all_metrics
