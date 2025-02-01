@@ -1,0 +1,28 @@
+includes:
+  - configs/oc22/is2re/base_joint_qs.yml
+
+trainer: ocp_qs
+
+model:
+  name: parr_qs
+  model_dims: 512
+  num_quantiles: 9
+  proposal_path: proposal_history_is2re_rr.pkl
+  otf_graph: True
+
+optim:
+  batch_size: 8
+  eval_batch_size: 8
+  num_workers: 0
+  optimizer: AdamW
+  optimizer_params:
+    amsgrad: True
+    weight_decay: 0  # 2e-6 (TF weight decay) / 1e-4 (lr) = 2e-2
+  lr_initial: 1.e-4
+  scheduler: ReduceLROnPlateau
+  mode: min
+  factor: 0.8
+  patience: 1
+  max_epochs: 80
+  ema_decay: 0.999
+  clip_grad_norm: 10
