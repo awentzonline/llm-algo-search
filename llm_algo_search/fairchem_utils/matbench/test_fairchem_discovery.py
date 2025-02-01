@@ -4,6 +4,7 @@ import click
 from fairchem.core.common.registry import registry
 from fairchem.core.datasets import data_list_collater
 from matbench_discovery.data import DataFiles, df_wbm
+from matbench_discovery.energy import get_e_form_per_atom
 from matbench_discovery.enums import MbdKey, Task
 from matbench_discovery.plots import wandb_scatter
 import numpy as np
@@ -84,6 +85,12 @@ def main(checkpoint_path, batch_size, debug):
     df = df.set_index('material_id')
 
     df_wbm[e_pred_col] = df[e_pred_col]
+
+    e_form_fairchem_col = f"e_form_per_atom_parr"
+    def calc_per_atom(row):
+        return get_e_form_per_atom(dict(energy=row[e_pred_col], composition=row[Key.formula]))
+    df_wbm[e_form_fairchem_col] = df_wbm.apply(calc_per_atom, axis=1)
+    print(df_wbm.head(100))
 
     table = wandb.Table(
         dataframe=df_wbm[[MbdKey.dft_energy, e_pred_col, Key.formula]]
