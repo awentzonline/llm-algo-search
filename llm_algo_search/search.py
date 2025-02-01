@@ -34,13 +34,17 @@ def main(cfg: DictConfig) -> Optional[float]:
                 proposal_history.append(seed_proposal)
 
     searcher = Searcher(proposer, evaluation_wrapper)
-    proposals = searcher.search(
-        max_steps=cfg.max_steps, max_errors=cfg.max_errors,
-        proposal_history=proposal_history,
-    )
+    try:
+        for proposal in searcher.search(
+            max_steps=cfg.max_steps, max_errors=cfg.max_errors,
+            proposal_history=proposal_history,
+        ):
+            proposal_history.append(proposal)
+    except KeyboardInterrupt:
+        print('Stopping search...')
 
     with open(cfg.algo.proposal_history_filename, 'wb') as outfile:
-        pickle.dump(proposals, outfile)
+        pickle.dump(proposal_history, outfile)
 
 
 if __name__ == "__main__":

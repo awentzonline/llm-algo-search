@@ -6,22 +6,19 @@ class Searcher:
     def search(self, max_steps=100, max_errors=3, proposal_history=None):
         proposal_history = proposal_history or []
         num_errors_in_a_row = 0
-        try:
-            for _ in range(max_steps):
-                proposal = self.proposer.propose(proposal_history)
-                proposal_history.append(proposal)
+        for _ in range(max_steps):
+            proposal = self.proposer.propose(proposal_history)
+            # proposal_history.append(proposal)
 
-                self.evaluation_wrapper.evaluate(proposal)
+            self.evaluation_wrapper.evaluate(proposal)
 
-                if proposal.error is not None:
-                    print('Error during evaluation: ', proposal.error)
-                    num_errors_in_a_row += 1
-                    if num_errors_in_a_row >= max_errors:
-                        print('STOPPING, TOO MANY ERRORS!')
-                        break
-                else:
-                    num_errors_in_a_row = 0
-        except KeyboardInterrupt:
-            print('Stopping...')
+            yield proposal
 
-        return proposal_history
+            if proposal.error is not None:
+                print('Error during evaluation: ', proposal.error)
+                num_errors_in_a_row += 1
+                if num_errors_in_a_row >= max_errors:
+                    print('STOPPING, TOO MANY ERRORS!')
+                    break
+            else:
+                num_errors_in_a_row = 0

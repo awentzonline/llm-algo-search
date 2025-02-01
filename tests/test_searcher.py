@@ -15,9 +15,11 @@ def test_searcher():
     evaluator = algo_context.get_evaluator()
     evaluation_wrapper = EvaluationWrapper({}, evaluator)
     searcher = Searcher(proposer, evaluation_wrapper)
-    proposals = searcher.search(
-        max_steps=1, max_errors=1
-    )
+    proposals = [
+        p for p in searcher.search(
+            max_steps=1, max_errors=1
+        )
+    ]
     assert len(proposals) == 1
     assert isinstance(proposals[0], Proposal)
     assert proposals[0].eval_results == {'is_correct': True}
