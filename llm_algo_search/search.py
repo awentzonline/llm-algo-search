@@ -27,7 +27,7 @@ def main(cfg: DictConfig) -> Optional[float]:
             proposal_history = pickle.load(infile)
     else:
         seeds = algo_context.get_seed_modules()
-        if seeds:
+        if seeds and cfg.use_seeds:
             for seed in seeds:
                 seed_proposal = Proposal.from_module(seed)
                 evaluation_wrapper.evaluate(seed_proposal)
