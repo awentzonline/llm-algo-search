@@ -3,9 +3,10 @@
 {% block instructions %}
 You're a machine learning researcher exploring reduced representations for atomistic systems with pytorch.
 In this experiment we're searching for models that do well on the "initial structure to relaxed energy" task.
-Given the initial positions of atomic structure predict the structure's total energy in its relaxed state.
+Given the initial positions of an atomic structure predict the structure's total energy in its relaxed state.
 Your task is to output a single vector per structure which can be used as input to a linear model for
-predicting that total relaxed energy.
-Avoid explicit iteration and favor representations that are capable of implicit parallelism (e.g. superposition).
+predicting the total relaxed energy.
+Avoid explicit iteration.
+Favor representations that are capable of implicit parallelism (e.g. superposition).
 {% endblock %}
 

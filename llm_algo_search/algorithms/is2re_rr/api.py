@@ -11,3 +11,11 @@ class API(nn.Module):
         Output a single vector of shape (self.model_dims,)
         """
         pass
+
+    def update_inputs(self, hidden_vecs):
+        """
+        hidden_vecs is the output of prepare_inputs
+        hidden_vecs.shape = (batch_size, hidden_dims)
+        Output a tensor of shape (batch_size, hidden_dims)
+        """
+        pass
