@@ -37,7 +37,7 @@ def main(cfg: DictConfig) -> Optional[float]:
     try:
         for proposal in searcher.search(
             max_steps=cfg.max_steps, max_errors=cfg.max_errors,
-            proposal_history=proposal_history,
+            seed_proposals=proposal_history
         ):
             proposal_history.append(proposal)
     except KeyboardInterrupt:

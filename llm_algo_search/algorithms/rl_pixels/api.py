@@ -10,7 +10,9 @@ class API(nn.Module):
 
     def forward(self, obs, reward):
         """
-        Use for batch-wise operation in learning, if you want
+        Use for batch-wise operation in learning, if you want.
+        obs, reward are float tensors.
+        Never call `policy` from this.
         """
         pass
 
@@ -23,6 +25,7 @@ class API(nn.Module):
     def policy(self, obs, reward):
         """
         Returns an action tensor shaped (action_dims,)
+        The observation will be a single frame so you are responsible for tracking anything else
         """
         pass
 

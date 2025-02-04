@@ -18,6 +18,8 @@ class RLPixelsEvaluator:
         max_steps = 0
         episode_steps = []
         for episode_i in range(cfg.num_episodes):
+            render_mode = 'human' if episode_i > 99 and episode_i % 100 == 0 else 'rgb_array'
+            env = gym.make(cfg.env_name, render_mode=render_mode)
             obs, _ = env.reset()
             reward = 0.
             agent.start_episode()
