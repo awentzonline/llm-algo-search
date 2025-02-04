@@ -1,0 +1,8 @@
+package: llm_algo_search.algorithms.rl_pixels_online
+proposal_history_filename: proposal_history_rl_pixels_online.pkl
+
+env_name: "ALE/Breakout-v5"
+model_dims: 256
+num_episodes: 500
+max_steps: 1000
+device: cpu
