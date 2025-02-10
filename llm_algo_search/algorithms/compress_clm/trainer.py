@@ -12,20 +12,21 @@ from transformers import (
 
 
 def eval_model(cfg, compressor):
-    raw_datasets = datasets.load_dataset(cfg.dataset_name, cfg.dataset_config_name)['validation']
+    raw_datasets = datasets.load_dataset(cfg.dataset_name, cfg.dataset_config_name)
 
     large_model = AutoModelForCausalLM.from_pretrained(cfg.model_name)
-    model_conf = AutoConfig.from_pretrained(cfg.model_name)
     small_model_conf = AutoConfig.from_pretrained(cfg.model_name)
     setattr(small_model_conf, cfg.hidden_dim_name, cfg.small_hidden_dims)
     setattr(small_model_conf, cfg.attention_head_name, cfg.small_attention_heads)
-    small_model = AutoModelForCausalLM.from_config(model_conf)
+    small_model = AutoModelForCausalLM.from_config(small_model_conf)
     compressor.compress(large_model, small_model)
+    large_model.cpu()
+    del large_model
 
     tokenizer = AutoTokenizer.from_pretrained(cfg.model_name)
 
     column_names = list(raw_datasets["train"].features)
-
+    
     def tokenize_function(examples):
         return tokenizer(examples['text'])
 
@@ -80,7 +81,7 @@ def eval_model(cfg, compressor):
         output_dir=cfg.output_dir,
         overwrite_output_dir=True,
         num_train_epochs=cfg.num_epochs,
-        # do_train=True,
+        do_train=True,
         do_eval=True,
         per_device_train_batch_size=cfg.batch_size,
         per_device_eval_batch_size=cfg.batch_size,
@@ -104,16 +105,14 @@ def eval_model(cfg, compressor):
         callbacks=callbacks,
     )
 
-    # train_result = trainer.train()
-    # train_metrics = train_result.metrics
-    # print('train metrics', train_metrics)
+    train_result = trainer.train()
+    train_metrics = train_result.metrics
+    print('train metrics', train_metrics)
 
     eval_metrics = trainer.evaluate()
     print('eval metrics', eval_metrics)
 
     small_model.cpu()
-    large_model.cpu()
     del small_model
-    del large_model
-
+    
     return eval_metrics

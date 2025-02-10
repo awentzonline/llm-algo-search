@@ -1,10 +1,13 @@
+import copy
+
+
 class Searcher:
     def __init__(self, proposer, evaluation_wrapper):
         self.proposer = proposer
         self.evaluation_wrapper = evaluation_wrapper
 
     def search(self, max_steps=100, max_errors=3, seed_proposals=None):
-        proposal_history = seed_proposals or []
+        proposal_history = copy.deepcopy(seed_proposals) or []
         num_errors_in_a_row = 0
         for _ in range(max_steps):
             proposal = self.proposer.propose(proposal_history)

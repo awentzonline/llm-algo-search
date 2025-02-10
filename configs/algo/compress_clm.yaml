@@ -10,11 +10,11 @@ small_attention_heads: 8
 dataset_name: Salesforce/wikitext
 dataset_config_name: wikitext-103-raw-v1
 block_size: 1024
-take_head: null
-batch_size: 4
-gradient_accumulation_steps: 1
+take_head: 30
+batch_size: 1
+gradient_accumulation_steps: 8
 num_epochs: 0.1
-lr: 5e-5
+lr: 2e-4
 output_dir: outputs
 preprocessing_num_workers: 4
 save_strategy: 'no'

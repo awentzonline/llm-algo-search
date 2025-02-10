@@ -1,4 +1,4 @@
-"""Randomly initialized model"""
+"""Randomly initialized model for baseline"""
 
 class API:
     def compress(self, big_model, small_model):
