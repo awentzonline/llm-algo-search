@@ -13,8 +13,9 @@ class BaseAlgoContext(TemplateRenderMixin):
     """
     prompt_template_name = 'base.tmpl'
 
-    def __init__(self):
+    def __init__(self, cfg):
         super().__init__()
+        self.cfg = cfg
         algo_module = inspect.getmodule(self.__class__)
         self.algo_package_name = algo_module.__package__
         self.algo_root_path = os.path.dirname(algo_module.__file__)
@@ -52,8 +53,15 @@ class BaseAlgoContext(TemplateRenderMixin):
         ]
         return seed_modules
 
+    def get_additional_context(self):
+        return {}
+
+    def render_template(self, filename, **template_kwargs):
+        additional_context = self.get_additional_context()
+        return super().render_template(filename, **template_kwargs, **additional_context)
+
     @classmethod
-    def get_context_from_package_path(cls, package_path):
+    def get_context_from_package_path(cls, package_path, cfg):
         """Look for an BaseAlgoContext subclass given a package path"""
         context_path = package_path + '.context'
         module = importlib.import_module(context_path)
@@ -63,7 +71,7 @@ class BaseAlgoContext(TemplateRenderMixin):
                 and issubclass(value, BaseAlgoContext)
                 and value is not BaseAlgoContext
             ):
-                return value()
+                return value(cfg)
 
         raise ValueError(
             f'No context found for algorithm package `{package_path}`'

@@ -1,0 +1,11 @@
+{% extends "base.tmpl" %}
+
+{% block instructions %}
+You're a machine learning researcher exploring model compression methods for causal language models.
+In this experiment we're searching for means of compressing a large transformer model into one
+where the hidden activation dimensionality and number of attention heads has been significantly reduced.
+
+Model architecture (only vocab size, and module names will remain the same):
+{{ model_architecture }}
+{% endblock %}
+

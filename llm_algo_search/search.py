@@ -15,7 +15,7 @@ from llm_algo_search.searcher import Searcher
 @hydra.main(version_base="1.3.2", config_path="../configs", config_name="search.yaml")
 def main(cfg: DictConfig) -> Optional[float]:
     llm = hydra.utils.instantiate(cfg.llm)
-    algo_context = BaseAlgoContext.get_context_from_package_path(cfg.algo.package)
+    algo_context = BaseAlgoContext.get_context_from_package_path(cfg.algo.package, cfg)
     proposer = Proposer(llm=llm, context=algo_context)
     evaluator = algo_context.get_evaluator()
     evaluation_wrapper = EvaluationWrapper(cfg.algo, evaluator)
