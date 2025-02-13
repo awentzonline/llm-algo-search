@@ -1,6 +1,6 @@
 LLM Algorithm Search
 ====================
-Search for algorithms that solve tasks using LLMs.
+Use LLMs to search for algorithms that solve tasks.
 
 Usage
 -----
@@ -13,16 +13,16 @@ Task packages use configuration by convention.
   * seeds/ - a directory where you can place API implementations to be evaluated at the beginning. Not required.
   * templates/ - jinja2 templates if you'd like to extend or override the base prompt template
 
-Add an algorithm config to `configs/task/your_task.yaml` which contains
+Add an task config to `configs/task/your_task.yaml` which contains
 
 ```
-package: llm_algo_search.tasks.your_algorithm
+package: llm_algo_search.tasks.your_task
 proposal_history_filename: proposal_history_your_name.pkl
 
 ...other configuration vars you want to use in your evaluator...
 ```
 
-Run via: `python -m llm_algo_search.search task=your_algorithm`
+Run via: `python -m llm_algo_search.search task=your_task`
 
 Example
 -------
