@@ -1,2 +1,2 @@
-package: llm_algo_search.algorithms.prune
+package: llm_algo_search.tasks.prune
 proposal_history_filename: proposal_history_prune.pkl

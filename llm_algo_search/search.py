@@ -5,7 +5,7 @@ from typing import Optional
 import hydra
 from omegaconf import DictConfig
 
-from llm_algo_search.algorithms.base_context import BaseAlgoContext
+from llm_algo_search.tasks.base_context import BaseAlgoContext
 from llm_algo_search.evaluation_wrapper import EvaluationWrapper
 from llm_algo_search.proposal import Proposal
 from llm_algo_search.proposer import Proposer

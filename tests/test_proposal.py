@@ -2,7 +2,7 @@ import inspect
 
 import pytest
 
-import llm_algo_search.algorithms.example.seeds.good_example
+import llm_algo_search.tasks.example.seeds.good_example
 from llm_algo_search.proposal import Proposal
 
 
@@ -38,7 +38,7 @@ def test_proposal_from_string(sample_proposal):
 
 
 def test_proposal_from_module():
-    proposal = Proposal.from_module(llm_algo_search.algorithms.example.seeds.good_example)
+    proposal = Proposal.from_module(llm_algo_search.tasks.example.seeds.good_example)
     impl_cls = proposal.get_implementation()
     assert inspect.isclass(impl_cls)
     impl = impl_cls()

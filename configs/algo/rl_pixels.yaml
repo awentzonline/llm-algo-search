@@ -1,4 +1,4 @@
-package: llm_algo_search.algorithms.rl_pixels
+package: llm_algo_search.tasks.rl_pixels
 proposal_history_filename: proposal_history_rl_pixels.pkl
 
 env_name: "ALE/Breakout-v5"

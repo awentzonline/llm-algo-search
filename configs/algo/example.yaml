@@ -1,2 +1,2 @@
-package: llm_algo_search.algorithms.example
+package: llm_algo_search.tasks.example
 proposal_history_filename: proposal_history_example.pkl

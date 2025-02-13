@@ -1,4 +1,4 @@
-package: llm_algo_search.algorithms.distill_clm
+package: llm_algo_search.tasks.distill_clm
 proposal_history_filename: proposal_history_distill_clm.pkl
 
 model_name: gpt2

@@ -1,4 +1,4 @@
-package: llm_algo_search.algorithms.s2ef_rr
+package: llm_algo_search.tasks.s2ef_rr
 proposal_history_filename: proposal_history_s2ef_rr.pkl
 
 all_model_dims: [128, 256, 512]

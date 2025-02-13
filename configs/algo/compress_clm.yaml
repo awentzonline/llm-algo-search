@@ -1,4 +1,4 @@
-package: llm_algo_search.algorithms.compress_clm
+package: llm_algo_search.tasks.compress_clm
 proposal_history_filename: proposal_history_compress_clm.pkl
 
 model_name: gpt2-large
