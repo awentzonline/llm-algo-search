@@ -18,6 +18,3 @@ class API(nn.Module):
 
     def policy(self, obs, reward):
         return torch.randint(0, self.action_dims, (1,)).detach().cpu().item()
-
-    def train_on_episode(self, obs, actions, rewards):
-        pass
