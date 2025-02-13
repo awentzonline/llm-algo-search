@@ -1,6 +1,6 @@
 from llm_algo_search.tasks.base_context import BaseTaskContext
 import llm_algo_search.tasks.example.api
-from llm_algo_search.tasks.example.context import ExampleAlgoContext
+from llm_algo_search.tasks.example.context import ExampleTaskContext
 import llm_algo_search.tasks.example.evaluator
 from llm_algo_search.tasks.example.evaluator import ExampleEvaluator
 import llm_algo_search.tasks.example.seeds.bad_example
@@ -9,7 +9,7 @@ import llm_algo_search.tasks.example.seeds.good_example
 
 def test_example_algo_context():
     cfg = {}
-    conf = ExampleAlgoContext(cfg)
+    conf = ExampleTaskContext(cfg)
 
     seeds = conf.get_seed_modules()
     print(seeds)
@@ -28,4 +28,4 @@ def test_example_algo_context():
     assert isinstance(evaluator, ExampleEvaluator)
 
     context = BaseTaskContext.get_context_from_package_path('llm_algo_search.tasks.example', cfg)
-    assert isinstance(context, ExampleAlgoContext)
+    assert isinstance(context, ExampleTaskContext)

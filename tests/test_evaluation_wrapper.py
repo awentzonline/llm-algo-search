@@ -1,12 +1,12 @@
 from llm_algo_search.evaluation_wrapper import EvaluationWrapper
-from llm_algo_search.tasks.example.context import ExampleAlgoContext
+from llm_algo_search.tasks.example.context import ExampleTaskContext
 
 from llm_algo_search.proposal import Proposal
 
 
 def test_evaluator():
     cfg = {}
-    ac = ExampleAlgoContext(cfg)
+    ac = ExampleTaskContext(cfg)
     ew = EvaluationWrapper(cfg, ac.get_evaluator())
     seed_modules = ac.get_seed_modules()
     # bad seed

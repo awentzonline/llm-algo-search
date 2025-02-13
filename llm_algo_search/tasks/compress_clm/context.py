@@ -3,7 +3,7 @@ from transformers import AutoConfig, AutoModelForCausalLM
 from llm_algo_search.tasks.base_context import BaseTaskContext
 
 
-class CompressCLMAlgoContext(BaseTaskContext):
+class CompressCLMTaskContext(BaseTaskContext):
     prompt_template_name = "propose_compress_clm.tmpl"
 
     def get_additional_context(self):
