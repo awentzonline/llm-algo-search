@@ -1,0 +1,8 @@
+package: llm_algo_search.tasks.rl
+proposal_history_filename: proposal_history_rl.pkl
+
+env_name: CartPole-v1
+model_dims: 256
+num_episodes: 500
+max_steps: 1000
+device: cpu

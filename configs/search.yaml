@@ -3,7 +3,7 @@
 defaults:
   - _self_
   - llm: anthropic
-  - algo: example
+  - task: example
 
 load_existing: true
 max_steps: 5
