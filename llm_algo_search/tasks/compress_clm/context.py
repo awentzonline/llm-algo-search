@@ -8,7 +8,7 @@ class CompressCLMTaskContext(BaseTaskContext):
 
     def get_additional_context(self):
         if not hasattr(self, '_model_architecture'):
-            model_conf = AutoConfig.from_pretrained(self.cfg.algo.model_name)
+            model_conf = AutoConfig.from_pretrained(self.cfg.task.model_name)
             model = AutoModelForCausalLM.from_config(model_conf)
             self._model_architecture = str(model)
             del model

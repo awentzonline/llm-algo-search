@@ -15,15 +15,15 @@ from llm_algo_search.searcher import Searcher
 @hydra.main(version_base="1.3.2", config_path="../configs", config_name="search.yaml")
 def main(cfg: DictConfig) -> Optional[float]:
     llm = hydra.utils.instantiate(cfg.llm)
-    algo_context = BaseTaskContext.get_context_from_package_path(cfg.algo.package, cfg)
+    algo_context = BaseTaskContext.get_context_from_package_path(cfg.task.package, cfg)
     proposer = Proposer(llm=llm, context=algo_context)
     evaluator = algo_context.get_evaluator()
-    evaluation_wrapper = EvaluationWrapper(cfg.algo, evaluator)
+    evaluation_wrapper = EvaluationWrapper(cfg.task, evaluator)
 
     # load up existing work history or start with seeds
     proposal_history = []
-    if cfg.load_existing and os.path.exists(cfg.algo.proposal_history_filename):
-        with open(cfg.algo.proposal_history_filename, 'rb') as infile:
+    if cfg.load_existing and os.path.exists(cfg.task.proposal_history_filename):
+        with open(cfg.task.proposal_history_filename, 'rb') as infile:
             proposal_history = pickle.load(infile)
     else:
         seeds = algo_context.get_seed_modules()
@@ -43,7 +43,7 @@ def main(cfg: DictConfig) -> Optional[float]:
     except KeyboardInterrupt:
         print('Stopping search...')
 
-    with open(cfg.algo.proposal_history_filename, 'wb') as outfile:
+    with open(cfg.task.proposal_history_filename, 'wb') as outfile:
         pickle.dump(proposal_history, outfile)
 
 
