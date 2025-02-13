@@ -1,4 +1,4 @@
-from llm_algo_search.tasks.base_context import BaseAlgoContext
+from llm_algo_search.tasks.base_context import BaseTaskContext
 import llm_algo_search.tasks.example.api
 from llm_algo_search.tasks.example.context import ExampleAlgoContext
 import llm_algo_search.tasks.example.evaluator
@@ -27,5 +27,5 @@ def test_example_algo_context():
     evaluator = conf.get_evaluator()
     assert isinstance(evaluator, ExampleEvaluator)
 
-    context = BaseAlgoContext.get_context_from_package_path('llm_algo_search.tasks.example', cfg)
+    context = BaseTaskContext.get_context_from_package_path('llm_algo_search.tasks.example', cfg)
     assert isinstance(context, ExampleAlgoContext)

@@ -1,5 +1,5 @@
-from llm_algo_search.tasks.base_context import BaseAlgoContext
+from llm_algo_search.tasks.base_context import BaseTaskContext
 
 
-class ExampleAlgoContext(BaseAlgoContext):
+class ExampleAlgoContext(BaseTaskContext):
     pass

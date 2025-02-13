@@ -1,5 +1,5 @@
-from llm_algo_search.tasks.base_context import BaseAlgoContext
+from llm_algo_search.tasks.base_context import BaseTaskContext
 
 
-class VSAVKAlgoContext(BaseAlgoContext):
+class VSAVKAlgoContext(BaseTaskContext):
     prompt_template_name = "propose_vsa.tmpl"

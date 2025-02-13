@@ -5,7 +5,7 @@ from typing import Optional
 import hydra
 from omegaconf import DictConfig
 
-from llm_algo_search.tasks.base_context import BaseAlgoContext
+from llm_algo_search.tasks.base_context import BaseTaskContext
 from llm_algo_search.evaluation_wrapper import EvaluationWrapper
 from llm_algo_search.proposal import Proposal
 from llm_algo_search.proposer import Proposer
@@ -15,7 +15,7 @@ from llm_algo_search.searcher import Searcher
 @hydra.main(version_base="1.3.2", config_path="../configs", config_name="search.yaml")
 def main(cfg: DictConfig) -> Optional[float]:
     llm = hydra.utils.instantiate(cfg.llm)
-    algo_context = BaseAlgoContext.get_context_from_package_path(cfg.algo.package, cfg)
+    algo_context = BaseTaskContext.get_context_from_package_path(cfg.algo.package, cfg)
     proposer = Proposer(llm=llm, context=algo_context)
     evaluator = algo_context.get_evaluator()
     evaluation_wrapper = EvaluationWrapper(cfg.algo, evaluator)

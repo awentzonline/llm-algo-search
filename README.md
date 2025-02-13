@@ -1,34 +1,34 @@
 LLM Algorithm Search
 ====================
-Search for algorithm implementations using LLMs.
+Search for algorithms that solve tasks using LLMs.
 
 Usage
 -----
-Algorithm packages use configuration by convention.
+Task packages use configuration by convention.
 
-* your_algorithm/
+* your_task/
   * api.py - stub API to be implemented
-  * context.py - contains a subclass of BaseAlgoContext which you can optionally configure things
+  * context.py - contains a subclass of BaseTaskContext which you can optionally configure things
   * evaluator.py - class that has an `evaluate` method which takes an API implementation as input
   * seeds/ - a directory where you can place API implementations to be evaluated at the beginning. Not required.
   * templates/ - jinja2 templates if you'd like to extend or override the base prompt template
 
-Add an algorithm config to `configs/algo/your_algorithm.yaml` which contains
+Add an algorithm config to `configs/task/your_task.yaml` which contains
 
 ```
-package: llm_algo_search.algorithms.your_algorithm
+package: llm_algo_search.tasks.your_algorithm
 proposal_history_filename: proposal_history_your_name.pkl
 
 ...other configuration vars you want to use in your evaluator...
 ```
 
-Run via: `python -m llm_algo_search.search algo=your_algorithm`
+Run via: `python -m llm_algo_search.search task=your_algorithm`
 
 Example
 -------
 Create a class that outputs 'foo' or 'bar'.
 
-The example can be found in `llm_algo_search/algorithms/example`
+The example can be found in `llm_algo_search/tasks/example`
 
 `api.py`:
 ```
@@ -48,7 +48,7 @@ class ExampleEvaluator:
 
 Using Anthropic's Claude Sonnet 3.5 as LLM, the first non-seed implementation is:
 ```
-<proposal name="llm_algo_search.algorithms.example.random_solution">
+<proposal name="llm_algo_search.tasks.example.random_solution">
 <thought>
 Since we've confirmed both 'bar' and 'baz' are valid outputs, let's try implementing a solution that randomly chooses between the two valid options. This approach could be useful in scenarios where varying the output between valid options is beneficial, such as load balancing or avoiding predictable patterns.
 </thought>
@@ -68,7 +68,7 @@ class ExampleAPI:
 
 And after 5 steps:
 ```
-<proposal name="llm_algo_search.algorithms.example.memoized_fibonacci">
+<proposal name="llm_algo_search.tasks.example.memoized_fibonacci">
 <thought>
 Let's try an approach inspired by mathematical sequences. We can use the Fibonacci sequence to determine which output to return, memoizing the results for efficiency. This introduces a mathematical pattern to our output selection while maintaining valid results. The implementation will use the memory-efficient O(1) space Fibonacci calculation to determine output, adding complexity while ensuring correctness.
 </thought>

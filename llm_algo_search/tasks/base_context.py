@@ -7,7 +7,7 @@ import sys
 from llm_algo_search.mixins import TemplateRenderMixin
 
 
-class BaseAlgoContext(TemplateRenderMixin):
+class BaseTaskContext(TemplateRenderMixin):
     """
 
     """
@@ -62,14 +62,14 @@ class BaseAlgoContext(TemplateRenderMixin):
 
     @classmethod
     def get_context_from_package_path(cls, package_path, cfg):
-        """Look for an BaseAlgoContext subclass given a package path"""
+        """Look for an BaseTaskContext subclass given a package path"""
         context_path = package_path + '.context'
         module = importlib.import_module(context_path)
         for name, value in inspect.getmembers(module):
             if (
                 inspect.isclass(value)
-                and issubclass(value, BaseAlgoContext)
-                and value is not BaseAlgoContext
+                and issubclass(value, BaseTaskContext)
+                and value is not BaseTaskContext
             ):
                 return value(cfg)
 
