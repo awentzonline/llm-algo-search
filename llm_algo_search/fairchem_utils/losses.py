@@ -1,5 +1,5 @@
 import logging
-from typing import Literal
+from typing import List, Literal, Optional
 
 from fairchem.core.common import distutils
 from fairchem.core.common.registry import registry
@@ -11,9 +11,17 @@ from llm_algo_search.models.quantiles import quantile_loss, quantile_huber_loss
 
 @registry.register_loss('quantile')
 class QuantileLoss(nn.Module):
-    def __init__(self, num_quantiles=9):
+    def __init__(
+        self, num_quantiles: Optional[List[float]] = None, quantiles: Optional[float] = None
+    ):
         super().__init__()
-        self.register_buffer('quantiles', torch.linspace(0.01, 0.99, num_quantiles))
+        if num_quantiles is not None:
+            quantiles = torch.linspace(0.01, 0.99, num_quantiles)
+        elif quantiles is not None:
+            quantiles = torch.FloatTensor(quantiles)
+        else:
+            raise ValueError('QuantileLoss requires num_quantiles or quantiles')
+        self.register_buffer('quantiles', quantiles)
 
     def forward(
         self, pred: torch.Tensor, target: torch.Tensor, natoms: torch.Tensor
@@ -23,9 +31,16 @@ class QuantileLoss(nn.Module):
 
 @registry.register_loss('quantile_huber')
 class QuantileHuberLoss(nn.Module):
-    def __init__(self, num_quantiles=9):
+    def __init__(
+        self, num_quantiles: Optional[List[float]] = None, quantiles: Optional[float] = None
+    ):
         super().__init__()
-        self.register_buffer('quantiles', torch.linspace(0.01, 0.99, num_quantiles))
+        if num_quantiles is not None:
+            quantiles = torch.linspace(0.01, 0.99, num_quantiles)
+        elif quantiles is not None:
+            quantiles = torch.FloatTensor(quantiles)
+        else:
+            raise ValueError('QuantileHuberLoss requires num_quantiles or quantiles')
 
     def forward(
         self, pred: torch.Tensor, target: torch.Tensor, natoms: torch.Tensor
