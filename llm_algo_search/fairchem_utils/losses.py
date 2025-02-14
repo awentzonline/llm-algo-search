@@ -41,6 +41,7 @@ class QuantileHuberLoss(nn.Module):
             quantiles = torch.FloatTensor(quantiles)
         else:
             raise ValueError('QuantileHuberLoss requires num_quantiles or quantiles')
+        self.register_buffer('quantiles', quantiles)
 
     def forward(
         self, pred: torch.Tensor, target: torch.Tensor, natoms: torch.Tensor
