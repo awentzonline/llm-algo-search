@@ -27,6 +27,17 @@ class Proposal:
     def get_implementation(self):
         return get_generated_class(self.code)
 
+    def get_as_module(self):
+        try:
+            doc = BeautifulSoup(self.raw, 'lxml')
+            name = doc.find('proposal')['name'].strip()
+            thought = doc.find('thought').get_text().strip()
+            code = doc.find('code').get_text().strip()
+            module_text = f'"""\n{name}\n\n{thought}\n\n{self.eval_results}\n"""\n{code}'
+            return name, module_text
+        except Exception as e:
+            raise
+
     @classmethod
     def parse_raw(cls, raw):
         try:

@@ -160,3 +160,4 @@ wandb/
 *.pkl.?
 
 data/
+exported_proposals/
