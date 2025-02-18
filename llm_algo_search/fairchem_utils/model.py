@@ -100,6 +100,8 @@ class ProposedEnergyQuantilesModel(nn.Module):
         )
         self.output_net = QuantilesOutput(model_dims, num_quantiles=num_quantiles)
 
+        self.otf_graph = True
+
     def _get_best_implementation(self, proposal_path):
         with open(proposal_path, 'rb') as infile:
             proposals = pickle.load(infile)
