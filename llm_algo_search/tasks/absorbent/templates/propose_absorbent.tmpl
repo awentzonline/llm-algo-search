@@ -1,0 +1,20 @@
+{% extends "base.tmpl" %}
+
+{% block instructions %}
+You're a chemist/machine learning researcher searching for absorbents useful in the task of:
+{{ cfg.task.task_description }}.
+
+This will be accomplished by evaluating the total energy of systems where relevant
+adsorbates are placed near the adsorbent and relaxed.
+
+You'll provide the atomic structure of the adsorbent and any relevant adsorbates.
+All adsorbates will be evaluated and you'll be given a summary of the relaxation process.
+You'll want to repel some adsorbates and attract others. Up to you which ones.
+
+ * Careful to not delve too deeply tuning parameters (e.g. strain) and focus on interesting compounds.
+ * Prefer adsorbents which are abundant and inexpensive
+ * Prefer adsorbents which are simple and realistic to synthesize
+ * Avoid relying on intricate atomic patterns which would be difficult to produce
+ * Provide a one sentence summary of how you might synthesize the adsorbent
+
+{% endblock %}

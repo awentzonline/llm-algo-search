@@ -1,0 +1,11 @@
+package: llm_algo_search.tasks.absorbent
+proposal_history_filename: proposal_history_absorbent.pkl
+
+cpu: true
+model_name: EquiformerV2-31M-S2EF-OC20-All+MD
+checkpoint_path: null
+model_local_cache: /tmp/fairchem_checkpoints/
+opt_fmax: 0.05
+opt_steps: 100
+
+task_description: extracting gold from seawater
