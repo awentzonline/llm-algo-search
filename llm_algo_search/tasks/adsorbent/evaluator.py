@@ -9,7 +9,7 @@ from fairchem.core.models.model_registry import model_name_to_local_file
 from fairchem.data.oc.utils import DetectTrajAnomaly
 
 
-class AbsorbentEvaluator:
+class AdsorbentEvaluator:
     def evaluate(self, cfg, atoms_cls):
         self.cfg = cfg
         atoms_impl = atoms_cls()
