@@ -58,6 +58,8 @@ class BaseTaskContext(TemplateRenderMixin):
 
     def render_template(self, filename, **template_kwargs):
         additional_context = self.get_additional_context()
+        additional_context['ctx'] = self
+        additional_context['cfg'] = self.cfg
         return super().render_template(filename, **template_kwargs, **additional_context)
 
     @classmethod
