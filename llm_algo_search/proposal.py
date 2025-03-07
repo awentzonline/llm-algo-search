@@ -88,15 +88,15 @@ class Proposal:
         return cls.parse_raw(raw_doc.strip())
 
 
-def get_generated_class(module_code):
+def get_generated_class(module_code, target_class_name='API'):
     namespace = {}
-    target_class_name = find_first_class_def(module_code)
+    # target_class_name = find_first_class_def(module_code)
     exec(module_code, namespace)
     for value in namespace.values():
         # find the first class defined in the string
         if inspect.isclass(value) and value.__name__ == target_class_name:
             return value
-    raise ValueError('Class not found in generated module')
+    raise ValueError('Class `API` not found in generated module')
 
 
 def find_first_class_def(module_code):
