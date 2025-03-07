@@ -1,6 +1,7 @@
 import ast
 from dataclasses import dataclass
 import inspect
+import re
 from typing import Any
 
 from bs4 import BeautifulSoup
@@ -15,6 +16,10 @@ PROPOSAL_TEMPLATE = \
 </code>
 </proposal>
 """
+
+
+# LLMs currently have a hard time outputting properly escaped XML
+re_code = re.compile(r'<code>(.*)</code>', re.DOTALL)
 
 
 @dataclass
@@ -32,7 +37,12 @@ class Proposal:
             doc = BeautifulSoup(self.raw, 'lxml')
             name = doc.find('proposal')['name'].strip()
             thought = doc.find('thought').get_text().strip()
-            code = doc.find('code').get_text().strip()
+            # LLMs current have a hard time escaping XML
+            # code = doc.find('code').get_text().strip()
+            code_match = re.search(re_code, self.raw)
+            if not code_match:
+                raise ValueError('No <code> section found in proposal')
+            code = code_match.group(1)
             module_text = f'"""\n{name}\n\n{thought}\n\n{self.eval_results}\n"""\n{code}'
             return name, module_text
         except Exception as e:
@@ -46,8 +56,13 @@ class Proposal:
     @classmethod
     def parse_raw(cls, raw):
         try:
-            doc = BeautifulSoup(raw, 'lxml')
-            code = doc.find('code').get_text().strip()
+            # LLMs current have a hard time escaping XML
+            # doc = BeautifulSoup(raw, 'lxml')
+            # code = doc.find('code').get_text().strip()
+            code_match = re.search(re_code, raw)
+            if not code_match:
+                raise ValueError('No <code> section found in proposal')
+            code = code_match.group(1)
         except Exception as e:
             # parsing error happened
             error = str(e)
