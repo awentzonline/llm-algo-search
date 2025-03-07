@@ -38,6 +38,11 @@ class Proposal:
         except Exception as e:
             raise
 
+    def get_thought(self):
+        doc = BeautifulSoup(self.raw, 'lxml')
+        thought = doc.find('thought').get_text().strip()
+        return thought
+
     @classmethod
     def parse_raw(cls, raw):
         try:

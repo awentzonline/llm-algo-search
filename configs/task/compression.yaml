@@ -1,0 +1,4 @@
+package: llm_algo_search.tasks.compression
+proposal_history_filename: proposal_history_compression.pkl
+
+test_filename: data/enwik9
