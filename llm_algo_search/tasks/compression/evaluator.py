@@ -12,7 +12,7 @@ class CompressionEvaluator:
         print('decompressing')
         recon = codec.decompress(compressed)
         print('evaluating')
-        lossless = compressed == recon
+        lossless = doc == recon
         if lossless:
             distance = 0
         else:
