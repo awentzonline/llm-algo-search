@@ -12,8 +12,15 @@ class CompressionEvaluator:
         print('decompressing')
         recon = codec.decompress(compressed)
         print('evaluating')
-        success = compressed == recon
-        distance = Levenshtein.distance(doc, recon)
+        lossless = compressed == recon
+        if lossless:
+            distance = 0
+        else:
+            distance = Levenshtein.distance(doc, recon)
         compression_ratio = len(compressed) / len(doc)
+        winner = compression_ratio < 0.1
 
-        return dict(success=success, distance=distance, compression_ratio=compression_ratio)
+        return dict(
+            lossless=lossless, distance=distance,
+            compression_ratio=compression_ratio, winner=winner
+        )
